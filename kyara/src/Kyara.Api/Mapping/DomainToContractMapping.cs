@@ -6,9 +6,11 @@ namespace Kyara.Api.Mapping;
 
 public static class DomainToContractMapping
 {
-    public static Response<CharacterResponse> AsResponse(this IEnumerable<Character> chars)
+    public static Response<CharacterResponse> AsResponse(this IEnumerable<Character> chars, int page, int totalPages)
         => new()
         {
+            Page = page,
+            TotalPages = totalPages,
             Items = chars.Select(x => new CharacterResponse
             {
                 Name = x.Name,

@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using Kyara.Api.Data;
 using Kyara.Api.Domain;
 using Microsoft.EntityFrameworkCore;
@@ -14,11 +13,16 @@ public class CharacterService
         _dbCtx = dbCtx;
     }
 
-    public async Task<IEnumerable<Character>> GetAllAsync()
+    public async Task<(IEnumerable<Character> characters, int totalPages)> GetAllAsync(
+        int pageSize, int page)
     {
-        return await _dbCtx.Characters
+        var totalPages = Math.Ceiling(await _dbCtx.Characters.CountAsync() / (double)pageSize);
+
+        return (await _dbCtx.Characters
             .AsNoTracking()
-            .ToListAsync();
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync(), (int)totalPages);
     }
 
     public async Task<bool> CreateAsync(Character character)
