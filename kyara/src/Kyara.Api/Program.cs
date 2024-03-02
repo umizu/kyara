@@ -22,7 +22,18 @@ services.AddDbContext<AppDbContext>(opts =>
 services.AddHealthChecks();
 services.AddScoped<CharacterService>();
 
+builder.Services.AddCors(opts =>
+{
+    opts.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithOrigins("http://localhost:4200");
+    });
+});
+
 var app = builder.Build();
+app.UseCors();
 app.UseHealthChecks("/_health");
 app.UseCharacterEndpoints();
 app.Run();
