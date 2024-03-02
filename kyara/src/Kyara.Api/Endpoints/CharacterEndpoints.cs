@@ -18,11 +18,11 @@ public static class CharacterEndpoints
 
     private static async Task<IResult> GetCharacters(
         CharacterService charService,
-        int pageSize = 10,
+        int perPage = 10,
         int page = 1)
     {
         
-        var (results, totalPages) = await charService.GetAllAsync(pageSize, page);
+        var (results, totalPages) = await charService.GetAllAsync(perPage, page);
         return Results.Ok(results.AsResponse(page, totalPages));
 
     }
