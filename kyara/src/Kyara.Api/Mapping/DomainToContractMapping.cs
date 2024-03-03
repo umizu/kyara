@@ -14,6 +14,7 @@ public static class DomainToContractMapping
             TotalPages = (int)Math.Ceiling(total / (double)perPage),
             Items = chars.Select(x => new CharacterResponse
             {
+                Id = x.Id,
                 Name = x.Name,
                 Image = x.Image,
                 Rating = x.Rating
