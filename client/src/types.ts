@@ -31,6 +31,7 @@ export interface Characters {
     items: Character[];
     page: number;
     totalPages: number;
+    totalItems: number;
 }
 
 export interface Character {

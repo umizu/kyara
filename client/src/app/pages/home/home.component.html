@@ -1,9 +1,19 @@
 <div class="column">
     <div class="row wrap gap-1 space-between justify-center">
-    <app-character
+        <app-character
             *ngFor="let character of characters"
             [character]="character"
             (characterOutput)="onCharacterOutput($event)"
         ></app-character>
+    </div>
+
+    <!-- paginator -->
+    <div class="flex-auto">
+        <p-paginator
+            (onPageChange)="onPageChange($event)"
+            [rows]="rows"
+            [totalRecords]="totalItems"
+            [rowsPerPageOptions]="[5, 10]"
+        ></p-paginator>
     </div>
 </div>
