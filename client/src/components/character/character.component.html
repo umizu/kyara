@@ -1,0 +1,9 @@
+<div class="column gap-1 wrapper">
+    <img [src]="character.image" alt="character thumbnail" />
+    <h2 class="title">{{ character.name }}</h2>
+    <p-rating
+    [readonly]="true"
+    [(ngModel)]="character.rating"
+    [cancel]="false"
+    ></p-rating>
+</div>
