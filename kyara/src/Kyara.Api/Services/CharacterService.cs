@@ -48,12 +48,15 @@ public class CharacterService
         return await _dbCtx.SaveChangesAsync() > 0;
     }
 
-    public async Task<bool> UpdateAsync(Guid id, int rating)
+    public async Task<bool> UpdateAsync(Guid id, string name, string image, int rating)
     {
         if (await GetByIdAsync(id) is not { } character)
             return false;
 
         character.Rating = rating;
+        character.Name = name;
+        character.Image = image;
+        
         _dbCtx.Characters.Update(character);
         return await _dbCtx.SaveChangesAsync() > 0;
     }

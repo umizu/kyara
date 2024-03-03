@@ -34,7 +34,8 @@ public static class CharacterEndpoints
         UpdateCharacterRequest req,
         CharacterService charService)
     {
-        var updated = await charService.UpdateAsync(id, req.Rating);
+        var updated = await charService.UpdateAsync(id, req.Name, req.Image, req.Rating);
+        
         if (!updated)
             return Results.NotFound();
         return Results.NoContent();

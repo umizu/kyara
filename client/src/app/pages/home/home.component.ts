@@ -33,9 +33,61 @@ export class HomeComponent {
                 page,
                 perPage,
             })
-            .subscribe((chars: Characters) => {
-                this.characters = chars.items;
-                this.totalItems = chars.totalItems;
+            .subscribe({
+                next: (data: Characters) => {
+                    this.characters = data.items;
+                    this.totalItems = data.totalItems;
+                },
+                error: (err) => {
+                    console.error(err);
+                },
+            });
+    }
+
+    editCharacter(character: Character, id: string) {
+        this.charactersService
+            .updateCharacter(
+                `http://localhost:9000/api/v1/characters/${id}`,
+                character
+            )
+            .subscribe({
+                next: (data) => {
+                    console.log(data);
+                    this.fetchCharacters(1, this.rows);
+                },
+                error: (err) => {
+                    console.error(err);
+                },
+            });
+    }
+
+    deleteCharacter(id: string) {
+        this.charactersService
+            .deleteCharacter(
+                `http://localhost:9000/api/v1/characters/${id}`
+            )
+            .subscribe({
+                next: (data) => {
+                    console.log(data);
+                    this.fetchCharacters(1, this.rows);
+                },
+                error: (err) => {
+                    console.error(err);
+                },
+            });
+    }
+
+    createCharacter(character: Character) {
+        this.charactersService
+            .createCharacter('http://localhost:9000/api/v1/characters', character)
+            .subscribe({
+                next: (data) => {
+                    console.log(data);
+                    this.fetchCharacters(1, this.rows);
+                },
+                error: (err) => {
+                    console.error(err);
+                },
             });
     }
 
