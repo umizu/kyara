@@ -21,9 +21,8 @@ public static class CharacterEndpoints
         int perPage = 10,
         int page = 1)
     {
-        
-        var (results, totalPages) = await charService.GetAllAsync(perPage, page);
-        return Results.Ok(results.AsResponse(page, totalPages));
 
+        var (results, total) = await charService.GetAllAsync(perPage, page);
+        return Results.Ok(results.AsResponse(page, perPage, total));
     }
 }

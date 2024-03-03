@@ -16,13 +16,13 @@ public class CharacterService
     public async Task<(IEnumerable<Character> characters, int totalPages)> GetAllAsync(
         int pageSize, int page)
     {
-        var totalPages = Math.Ceiling(await _dbCtx.Characters.CountAsync() / (double)pageSize);
+        var total = await _dbCtx.Characters.CountAsync();
 
         return (await _dbCtx.Characters
             .AsNoTracking()
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
-            .ToListAsync(), (int)totalPages);
+            .ToListAsync(), total);
     }
 
     public async Task<bool> CreateAsync(Character character)
